@@ -1,6 +1,6 @@
 {
   "name": "web-component-stencil-test",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Stencil Component Starter",
   "author": "Arnaud Tanielian <tanielian@work.co>",
   "main": "dist/index.js",
@@ -50,5 +50,16 @@
     "puppeteer": "1.20.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "storybook-addon-jsx": "^7.1.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danetag/web-component-stencil-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Danetag/web-component-stencil-test/issues"
+  },
+  "homepage": "https://github.com/Danetag/web-component-stencil-test#readme"
 }
