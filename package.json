@@ -13,7 +13,8 @@
   "unpkg": "dist/{NAMESPACE}/{NAMESPACE}.js",
   "files": [
     "dist/",
-    "loader/"
+    "loader/",
+    "hydrate/"
   ],
   "scripts": {
     "build": "stencil build --docs",
