@@ -3,7 +3,7 @@ import { Component, Prop, Watch, State, h } from '@stencil/core';
 @Component({
   tag: 'simple-button',
   styleUrl: 'simple-button.scss',
-  shadow: true
+  shadow: false
 })
 export class SimpleButton {
   /**

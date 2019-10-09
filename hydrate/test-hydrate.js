@@ -1609,7 +1609,7 @@ class SimpleButton {
         "theme": ["validateTheme"]
     }; }
     static get cmpMeta() { return {
-        "$flags$": 9,
+        "$flags$": 4,
         "$tagName$": "simple-button",
         "$members$": {
             "showNbOfClick": [4, "show-click"],
@@ -1628,6 +1628,6 @@ const cmps = [
 ];
 registerComponents(cmps);
 styles.set('sc-my-component','');
-styles.set('sc-simple-button','/*!\@.simple-button*/.simple-button.sc-simple-button{background:inherit;border:none;color:inherit;cursor:pointer;display:inline-block;font-family:sans-serif;font-size:1rem;padding:1rem 2rem;margin:0;text-align:center;text-decoration:none;-webkit-transition:all .25s ease-in-out;transition:all .25s ease-in-out;-webkit-appearance:none;-moz-appearance:none}/*!\@.primary*/.primary.sc-simple-button{background:#0069ed;color:#fff}/*!\@.primary:hover*/.primary.sc-simple-button:hover{background:#4396fc}/*!\@.secondary*/.secondary.sc-simple-button{background:#715aff;color:#fff}/*!\@.secondary:hover*/.secondary.sc-simple-button:hover{background:#8a78ff}');
+styles.set('sc-simple-button','.simple-button{background:inherit;border:none;color:inherit;cursor:pointer;display:inline-block;font-family:sans-serif;font-size:1rem;padding:1rem 2rem;margin:0;text-align:center;text-decoration:none;-webkit-transition:all .25s ease-in-out;transition:all .25s ease-in-out;-webkit-appearance:none;-moz-appearance:none}.primary{background:#0069ed;color:#fff}.primary:hover{background:#4396fc}.secondary{background:#715aff;color:#fff}.secondary:hover{background:#8a78ff}');
 
 exports.bootstrapHydrate = bootstrapHydrate;
