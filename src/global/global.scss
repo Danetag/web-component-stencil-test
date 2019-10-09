@@ -1,0 +1,172 @@
+:global * {
+  vertical-align: baseline;
+  border: 0 none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:global html,
+:global body,
+:global div,
+:global span,
+:global applet,
+:global object,
+:global iframe,
+:global table,
+:global caption,
+:global tbody,
+:global tfoot,
+:global thead,
+:global tr,
+:global th,
+:global td,
+:global del,
+:global dfn,
+:global em,
+:global font,
+:global img,
+:global ins,
+:global kbd,
+:global q,
+:global s,
+:global samp,
+:global small,
+:global strike,
+:global strong,
+:global sub,
+:global sup,
+:global tt,
+:global var,
+:global h1,
+:global h2,
+:global h3,
+:global h4,
+:global h5,
+:global h6,
+:global p,
+:global blockquote,
+:global pre,
+:global a,
+:global abbr,
+:global acronym,
+:global address,
+:global big,
+:global cite,
+:global code,
+:global dl,
+:global dt,
+:global dd,
+:global ol,
+:global ul,
+:global li,
+:global fieldset,
+:global form,
+:global label,
+:global legend,
+:global button {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  vertical-align: inherit;
+  border: 0 none;
+  padding: 0;
+  margin: 0;
+}
+
+:global a,
+:global button {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  vertical-align: inherit;
+  border: 0 none;
+  padding: 0;
+  margin: 0;
+}
+
+:global img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+:global figure {
+  margin: 0;
+}
+
+:global button {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+:global [role="button"],
+:global input[type="submit"],
+:global input[type="reset"],
+:global input[type="button"],
+:global button {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+:global input[type="submit"],
+:global input[type="reset"],
+:global input[type="button"],
+:global button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-appearance: button;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+:global input::-moz-focus-inner,
+:global button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+:global strong {
+  font-weight: bold;
+}
+
+:global li {
+  list-style-type: none;
+}
+
+:global a {
+  text-decoration: none;
+  cursor: pointer;
+  line-height: normal;
+}
+
+*:focus {
+  transition-delay: 0ms;
+}
+
+:global a,
+:global strong,
+:global span,
+:global em {
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  font-family: inherit;
+}

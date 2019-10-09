@@ -1,0 +1,125 @@
+@import "./variables";
+
+
+@mixin generate-flexbox-grid($size, $min-colums, $max-colums, $gutter) {
+  // Mixin to generate the flexbox grid
+  @for $i from $min-colums through $max-colums {
+    @if $i != 0 {
+      .col-#{$size}-#{$i} {
+        @if $size == "XS" {
+          flex-basis: $i * (100% / $max-colums);
+          width: $i * (100% / $max-colums);
+          max-width: #{($i * (100% / $max-colums))};
+          @if $gutter != 0 { padding-right: $gutter + px; }
+        }
+
+        @if $size == "S" {
+          @include S {
+            flex-basis: $i * (100% / $max-colums);
+            width: $i * (100% / $max-colums);
+            max-width: #{($i * (100% / $max-colums))};
+            @if $gutter != 0 { padding-right: $gutter + px; }
+          }
+        }
+
+        @if $size == "M" {
+          @include M {
+            flex-basis: $i * (100% / $max-colums);
+            width: $i * (100% / $max-colums);
+            max-width: #{($i * (100% / $max-colums))};
+            @if $gutter != 0 { padding-right: $gutter + px; }
+          }
+        }
+
+        @if $size == "L" {
+          @include L {
+            flex-basis: $i * (100% / $max-colums);
+            width: $i * (100% / $max-colums);
+            max-width: #{($i * (100% / $max-colums))};
+            @if $gutter != 0 { padding-right: $gutter + px; }
+          }
+        }
+
+        @if $size == "XL" {
+          @include XL {
+            flex-basis: $i * (100% / $max-colums);
+            width: $i * (100% / $max-colums);
+            max-width: #{($i * (100% / $max-colums))};
+            @if $gutter != 0 { padding-right: $gutter + px; }
+          }
+        }
+      }
+    }
+  }
+
+  /* Don't need the full panel of classes, just have of it */
+  @for $i from $min-colums through ($max-colums) {
+    @if $i != 0 {
+      .col-#{$size}-offset-#{$i} {
+        @if $size == "XS" {
+          margin-left: $i * (100% / $max-colums);
+        }
+
+        @if $size == "S" {
+          @include S {
+            margin-left: $i * (100% / $max-colums);
+          }
+        }
+
+        @if $size == "M" {
+          @include M {
+            margin-left: $i * (100% / $max-colums);
+          }
+        }
+
+        @if $size == "L" {
+          @include L {
+            margin-left: $i * (100% / $max-colums);
+          }
+        }
+
+        @if $size == "XL" {
+          @include XL {
+            margin-left: $i * (100% / $max-colums);
+          }
+        }
+      }
+    }
+  }
+
+  /* Don't need the full panel of classes, just have of it */
+  @for $i from $min-colums through ($max-colums / 2) {
+    @if $i != 0 {
+      .col-#{$size}-right-offset-#{$i} {
+        @if $size == "XS" {
+          margin-right: $i * (100% / $max-colums);
+        }
+
+        @if $size == "S" {
+          @include S {
+            margin-right: $i * (100% / $max-colums);
+          }
+        }
+
+        @if $size == "M" {
+          @include M {
+            margin-right: $i * (100% / $max-colums);
+          }
+        }
+
+        @if $size == "L" {
+          @include L {
+            margin-right: $i * (100% / $max-colums);
+          }
+        }
+
+        @if $size == "XL" {
+          @include XL {
+            margin-right: $i * (100% / $max-colums);
+          }
+        }
+      }
+    }
+  }
+
+}

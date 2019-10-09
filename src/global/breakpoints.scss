@@ -1,0 +1,49 @@
+@import "./variables";
+
+@mixin S {
+  @media (min-width: #{$bp-S}) {
+    @content;
+  }
+}
+
+@mixin M {
+  @media (min-width: #{$bp-M}) {
+    @content;
+  }
+}
+
+@mixin L {
+  @media (min-width: #{$bp-L}) {
+    @content;
+  }
+}
+
+@mixin XL {
+  @media (min-width: #{$bp-XL}) {
+    @content;
+  }
+}
+
+@mixin S-smallH {
+  @media (min-width: #{$bp-S}) and (max-height: 700px) {
+    @content;
+  }
+}
+
+@mixin M-smallH {
+  @media (min-width: #{$bp-M}) and (max-height: 700px) {
+    @content;
+  }
+}
+
+@mixin L-smallH {
+  @media (min-width: #{$bp-L}) and (max-height: 700px) {
+    @content;
+  }
+}
+
+@mixin XL-smallH {
+  @media (min-width: #{$bp-XL}) and (max-height: 700px) {
+    @content;
+  }
+}

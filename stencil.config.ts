@@ -3,8 +3,13 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'test',
+  globalStyle: 'src/globals/app.scss',
   plugins: [
-    sass()
+    sass({
+      injectGlobalPaths: [
+        "src/global/app.scss"
+      ]
+    })
   ],
   outputTargets: [
     {

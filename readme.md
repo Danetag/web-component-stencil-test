@@ -60,8 +60,8 @@ Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-compone
 
 | Property        | Attribute    | Description           | Type      | Default     |  Values                   |
 | --------------- | ------------ | --------------------- | --------- | ----------- | ------------------------- |
-| `showNbOfClick` | `show-click` | Show number of clicks | `boolean` | `false`     | `true`|`false`            |
-| `theme`         | `theme`      | theme                 | `string`  | `'primary'` | `'primary'`|`'secondary'` |
+| `showNbOfClick` | `show-click` | Show number of clicks | `boolean` | `false`     | `true`,`false`            |
+| `theme`         | `theme`      | theme                 | `string`  | `'primary'` | `'primary'`,`'secondary'` |
 
 ### My Component
 
