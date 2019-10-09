@@ -1,0 +1,6 @@
+{
+  "name": "web-component-stencil-test/hydrate",
+  "description": "test component hydration app built for a NodeJS environment.",
+  "main": "index.js",
+  "types": "index.d.ts"
+}

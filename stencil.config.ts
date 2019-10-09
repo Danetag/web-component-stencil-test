@@ -8,15 +8,15 @@ export const config: Config = {
   ],
   outputTargets: [
     {
-      type: 'dist',
+      type: 'dist-hydrate-script',
       esmLoaderPath: '../loader'
     },
     {
       type: 'docs-readme'
     },
-    {
-      type: 'www',
-      serviceWorker: null // disable service workers
-    }
+    // {
+    //   type: 'www',
+    //   serviceWorker: null // disable service workers
+    // }
   ]
 };

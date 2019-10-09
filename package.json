@@ -1,6 +1,6 @@
 {
   "name": "web-component-stencil-test",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Stencil Component Starter",
   "author": "Arnaud Tanielian <tanielian@work.co>",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
-    "@stencil/core": "1.5.4",
+    "@stencil/core": "1.6.1",
     "@stencil/sass": "^1.0.1",
     "@storybook/addon-a11y": "^5.2.3",
     "@storybook/addon-actions": "^5.2.3",
