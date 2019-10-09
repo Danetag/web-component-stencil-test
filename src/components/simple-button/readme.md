@@ -3,7 +3,7 @@
 ## Examples
 
 ```.html
-  <simple-button label="I'm a simple button"></simple-button>
+  <simple-button show-click theme="secondary">I'm a simple button</simple-button>
 ```
 
 <!-- Auto Generated Below -->

@@ -46,11 +46,39 @@ npm test
 Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
 
 
-## Naming Components
+## Available Components
 
-When creating new component tags, we recommend _not_ using `stencil` in the component name (ex: `<stencil-datepicker>`). This is because the generated component has little to nothing to do with Stencil; it's just a web component!
+### Simple button
 
-Instead, use a prefix that fits your company or any name for a group of related components. For example, all of the Ionic generated web components use the prefix `ion`.
+**Examples**
+
+```.html
+  <simple-button show-click theme="secondary">I'm a simple button</simple-button>
+```
+
+**Properties**
+
+| Property        | Attribute    | Description           | Type      | Default     |  Values                   |
+| --------------- | ------------ | --------------------- | --------- | ----------- | ------------------------- |
+| `showNbOfClick` | `show-click` | Show number of clicks | `boolean` | `false`     | `true`|`false`            |
+| `theme`         | `theme`      | theme                 | `string`  | `'primary'` | `'primary'`|`'secondary'` |
+
+### My Component
+
+**Examples**
+
+```.html
+  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+```
+
+**Properties**
+
+| Property | Attribute | Description     | Type     | Default     |
+| -------- | --------- | --------------- | -------- | ----------- |
+| `first`  | `first`   | The first name  | `string` | `undefined` |
+| `last`   | `last`    | The last name   | `string` | `undefined` |
+| `middle` | `middle`  | The middle name | `string` | `undefined` |
+
 
 
 ## Using this component
@@ -58,15 +86,39 @@ Instead, use a prefix that fits your company or any name for a group of related 
 ### Script tag
 
 - [Publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- Put a script tag similar to this `<script src='https://unpkg.com/my-component@0.0.1/dist/mycomponent.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='https://unpkg.com/web-component-stencil-test@0.0.1/dist/mycomponent.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### Node Modules
-- Run `npm install my-component --save`
-- Put a script tag similar to this `<script src='node_modules/my-component/dist/mycomponent.js'></script>` in the head of your index.html
+- Run `npm install web-component-stencil-test --save`
+- Put a script tag similar to this `<script src='node_modules/web-component-stencil-test/dist/mycomponent.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### In a stencil-starter app
-- Run `npm install my-component --save`
-- Add an import to the npm packages `import my-component;`
+- Run `npm install web-component-stencil-test --save`
+- Add an import to the npm packages `import web-component-stencil-test;`
 - Then you can use the element anywhere in your template, JSX, html etc
+
+### In a React app
+- See https://stenciljs.com/docs/react
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+// Import the loader
+import { applyPolyfills, defineCustomElements } from 'web-component-stencil-test/loader';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+registerServiceWorker();
+
+applyPolyfills().then(() => {
+  defineCustomElements(window);
+});
+```
+
+### In an Angular app
+- See https://stenciljs.com/docs/angular
