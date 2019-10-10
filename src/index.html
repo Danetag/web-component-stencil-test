@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="en" style="font-size: 62.5%;">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
@@ -9,10 +9,23 @@
   <script nomodule src="/build/test.js"></script>
 
 </head>
-<body>
+<body style="margin:0;">
 
-  <simple-button>A button</simple-button>
-  <simple-button show-click theme="secondary">A button that shows the number of click</simple-button>
+  <grid-container>
+      <grid-row>
+          <grid-col col="4" center>
+            <simple-button>A button</simple-button>
+          </grid-col>
+          
+          <grid-col col="8" center>
+            <simple-button show-click theme="secondary">A button that shows the number of click</simple-button>
+          </grid-col>
+
+          <grid-col col="4" center>
+              <simple-button>A button</simple-button>
+            </grid-col>
+      </grid-row>
+  </grid-container>
 
 </body>
 </html>

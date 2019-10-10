@@ -1,0 +1,23 @@
+@import "../../globals/mixins";
+
+.grid-col {
+    display: flex;
+    flex-direction: column;
+
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+@include generate-flexbox-grid("XS", 0, $nb-columns-XS, 0);
+@include generate-flexbox-grid("S", 0, $nb-columns-S, 0);
+@include generate-flexbox-grid("M", 0, $nb-columns-M, 0);
+@include generate-flexbox-grid("L", 0, $nb-columns-L, 0);
+@include generate-flexbox-grid("XL", 0, $nb-columns-XL, 0);
+
+/* shortcuts */
+.grid-col-center {
+    justify-content: center;
+    align-items: center;
+}
+
