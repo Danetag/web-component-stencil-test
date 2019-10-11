@@ -1,22 +1,26 @@
 import { storiesOf } from '@storybook/html';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, radios } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import readme from "./readme.md";
-
-
 
 storiesOf('Test a simple-button', module)
     .addDecorator(withKnobs)
     .addParameters({ jest: ['simple-button'] })
     .add('Default', () => {
-        const el = document.createElement('simple-button');
-        const label = text('Label', 'My label');
+        const label = 'Themes';
+        const options = {
+                Primary: 'primary',
+                Secondary: 'secondary',
+        };
+        const defaultValue = options.Primary;
 
-        el.label= label;
+        const el = document.createElement('simple-button');
+        el.theme = radios(label, options, defaultValue);
+        el.textContent = text('Label', 'My label');
+
         el.addEventListener('click', e => action('click')(e.detail));
 
-        el.textContent = 'yeaaaah';
         return el;
     }, {
         notes: {markdown: readme},

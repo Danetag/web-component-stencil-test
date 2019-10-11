@@ -13,15 +13,19 @@
 
 ## Dependencies
 
-### Used by
+### Depends on
 
- - [grid-ghost](../grid-ghost)
+- [grid-col](../grid-col)
+- [grid-container](../grid-container)
+- [grid-row](../grid-row)
 
 ### Graph
 ```mermaid
 graph TD;
+  grid-ghost --> grid-col
   grid-ghost --> grid-container
-  style grid-container fill:#f9f,stroke:#333,stroke-width:4px
+  grid-ghost --> grid-row
+  style grid-ghost fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

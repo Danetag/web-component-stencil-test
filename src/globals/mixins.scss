@@ -1,19 +1,18 @@
 @import "./variables";
 
+
 @mixin generate-flexbox-grid($size, $min-colums, $max-colums, $gutter) {
   // Mixin to generate the flexbox grid
   @for $i from $min-colums through $max-colums {
     @if $i != 0 {
-      @if $size == "XS" {
-        grid-col[col="#{$i}"] {
+      .col-#{to-lower-case($size)}-#{$i} {
+        @if $size == "XS" {
           flex-basis: $i * (100% / $max-colums);
           width: $i * (100% / $max-colums);
           max-width: #{($i * (100% / $max-colums))};
           @if $gutter != 0 { padding-right: $gutter + px; }
         }
-      }
 
-      grid-col[col-#{$size}="#{$i}"] {
         @if $size == "S" {
           @include S {
             flex-basis: $i * (100% / $max-colums);
@@ -53,16 +52,16 @@
     }
   }
 
-  /* Don't need the full panel of classes, just half of it */
+  /* Don't need the full panel of classes, just have of it */
   @for $i from $min-colums through ($max-colums) {
     @if $i != 0 {
       @if $size == "XS" {
-        grid-col[offset="#{$i}"] {
+        .col-offset-#{$i} {
           margin-left: $i * (100% / $max-colums);
         }
       }
 
-      grid-col[offset-#{$size}="#{$i}"] {
+      .col-offset-#{$size}-#{$i} {
         @if $size == "S" {
           @include S {
             margin-left: $i * (100% / $max-colums);
@@ -90,16 +89,17 @@
     }
   }
 
-  /* Don't need the full panel of classes, just half of it */
+  /* Don't need the full panel of classes, just have of it */
   @for $i from $min-colums through ($max-colums / 2) {
     @if $i != 0 {
       @if $size == "XS" {
-        grid-col[offset-right="#{$i}"] {
+        .col-right-offset-#{$i} {
           margin-right: $i * (100% / $max-colums);
         }
       }
 
-      grid-col[offset-right-#{$size}="#{$i}"] {
+      .col-#{$size}-right-offset-#{$i} {
+
         @if $size == "S" {
           @include S {
             margin-right: $i * (100% / $max-colums);

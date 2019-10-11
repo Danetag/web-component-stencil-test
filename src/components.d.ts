@@ -76,6 +76,7 @@ export namespace Components {
     'offsetXL': number;
   }
   interface GridContainer {}
+  interface GridGhost {}
   interface GridRow {
     /**
     * Align Items
@@ -143,6 +144,12 @@ declare global {
     new (): HTMLGridContainerElement;
   };
 
+  interface HTMLGridGhostElement extends Components.GridGhost, HTMLStencilElement {}
+  var HTMLGridGhostElement: {
+    prototype: HTMLGridGhostElement;
+    new (): HTMLGridGhostElement;
+  };
+
   interface HTMLGridRowElement extends Components.GridRow, HTMLStencilElement {}
   var HTMLGridRowElement: {
     prototype: HTMLGridRowElement;
@@ -163,6 +170,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'grid-col': HTMLGridColElement;
     'grid-container': HTMLGridContainerElement;
+    'grid-ghost': HTMLGridGhostElement;
     'grid-row': HTMLGridRowElement;
     'my-component': HTMLMyComponentElement;
     'simple-button': HTMLSimpleButtonElement;
@@ -237,6 +245,7 @@ declare namespace LocalJSX {
     'offsetXL'?: number;
   }
   interface GridContainer {}
+  interface GridGhost {}
   interface GridRow {
     /**
     * Align Items
@@ -291,6 +300,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'grid-col': GridCol;
     'grid-container': GridContainer;
+    'grid-ghost': GridGhost;
     'grid-row': GridRow;
     'my-component': MyComponent;
     'simple-button': SimpleButton;
@@ -305,6 +315,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'grid-col': LocalJSX.GridCol & JSXBase.HTMLAttributes<HTMLGridColElement>;
       'grid-container': LocalJSX.GridContainer & JSXBase.HTMLAttributes<HTMLGridContainerElement>;
+      'grid-ghost': LocalJSX.GridGhost & JSXBase.HTMLAttributes<HTMLGridGhostElement>;
       'grid-row': LocalJSX.GridRow & JSXBase.HTMLAttributes<HTMLGridRowElement>;
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
       'simple-button': LocalJSX.SimpleButton & JSXBase.HTMLAttributes<HTMLSimpleButtonElement>;

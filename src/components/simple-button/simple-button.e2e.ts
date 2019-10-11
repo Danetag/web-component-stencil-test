@@ -15,7 +15,7 @@ describe('simple-button', () => {
     await page.setContent('<simple-button>My Label</simple-button>');
     const component = await page.find('simple-button');
 
-    const element = await page.find('simple-button >>> button.simple-button');
+    const element = await page.find('button.simple-button');
     expect(element).toHaveClass('primary');
 
     component.setProperty('theme', 'secondary');
