@@ -108,33 +108,27 @@ export class GridCol {
   }
 
   getOffsetClassnames = () => {
-    const offset = this.offset;
-    const offsetS = this.offsetS ? this.offsetS : offset;
-    const offsetM = this.offsetM ? this.offsetM : offsetS;
-    const offsetL = this.offsetL ? this.offsetL : offsetM;
-    const offsetXL = this.offsetXL ? this.offsetXL : offsetL;
+    // if no offset at all, no need for classes
+    if (!this.offset && !this.offsetS && !this.offsetM && !this.offsetL && !this.offsetXL) return '';
 
-    const offsetClassname = offset ?  `col-offset-xs-${offset}` : '';
-    const offsetSClassname = (offsetS && offsetS !== offset) || (COLUMNS.S !== COLUMNS.XS) && offsetS > 0 ?  `col-offset-s-${offsetS}` : '';
-    const offsetMClassname = (offsetM && offsetM !== offsetS) || (COLUMNS.M !== COLUMNS.S) && offsetM > 0 ?  `col-offset-m-${offsetM}` : '';
-    const offsetLClassname = (offsetL && offsetL !== offsetM) || (COLUMNS.L !== COLUMNS.M) && offsetL > 0 ?  `col-offset-l-${offsetL}` : '';
-    const offsetXLClassname = (offsetXL && offsetXL !== offsetL) || (COLUMNS.XL !== COLUMNS.L) && offsetXL > 0 ?  `col-offset-xl-${offsetXL}` : '';
+    const offsetClassname = this.offset > 0 ?  `col-offset-xs-${this.offset}` : '';
+    const offsetSClassname = (this.offsetS !== this.offset) || (COLUMNS.S !== COLUMNS.XS) ?  `col-offset-s-${this.offsetS}` : '';
+    const offsetMClassname = (this.offsetM !== this.offsetS) || (COLUMNS.M !== COLUMNS.S) ?  `col-offset-m-${this.offsetM}` : '';
+    const offsetLClassname = (this.offsetL !== this.offsetM) || (COLUMNS.L !== COLUMNS.M) ?  `col-offset-l-${this.offsetL}` : '';
+    const offsetXLClassname = (this.offsetXL !== this.offsetL) || (COLUMNS.XL !== COLUMNS.L) ?  `col-offset-xl-${this.offsetXL}` : '';
 
     return `${offsetClassname} ${offsetSClassname} ${offsetMClassname} ${offsetLClassname} ${offsetXLClassname}`;
   }
 
   getOffsetRightClassnames = () => {
-    const offsetRight = this.offsetRight;
-    const offsetRightS = this.offsetRightS ? this.offsetRightS : offsetRight;
-    const offsetRightM = this.offsetRightM ? this.offsetRightM : offsetRightS;
-    const offsetRightL = this.offsetRightL ? this.offsetRightL : offsetRightM;
-    const offsetRightXL = this.offsetRightXL ? this.offsetRightXL : offsetRightL;
+    // if no offset Right at all, no need for classes
+    if (!this.offsetRight && !this.offsetRightS && !this.offsetRightM && !this.offsetRightL && !this.offsetRightXL) return '';
 
-    const offsetRightClassname = offsetRight ?  `col-offsetRight-xs-${offsetRight}` : '';
-    const offsetRightSClassname = (offsetRightS && offsetRightS !== offsetRight) || (COLUMNS.S !== COLUMNS.XS) && offsetRightS > 0 ?  `col-offsetRight-s-${offsetRightS}` : '';
-    const offsetRightMClassname = (offsetRightM && offsetRightM !== offsetRightS) || (COLUMNS.M !== COLUMNS.S) && offsetRightM > 0 ?  `col-offsetRight-m-${offsetRightM}` : '';
-    const offsetRightLClassname = (offsetRightL && offsetRightL !== offsetRightM) || (COLUMNS.L !== COLUMNS.M) && offsetRightL > 0 ?  `col-offsetRight-l-${offsetRightL}` : '';
-    const offsetRightXLClassname = (offsetRightXL && offsetRightXL !== offsetRightL) || (COLUMNS.XL !== COLUMNS.L) && offsetRightXL > 0 ?  `col-offsetRight-xl-${offsetRightXL}` : '';
+    const offsetRightClassname = this.offsetRight > 0 ?  `col-offset-right-xs-${this.offsetRight}` : '';
+    const offsetRightSClassname = (this.offsetRightS !== this.offsetRight) || (COLUMNS.S !== COLUMNS.XS) ?  `col-offset-right-s-${this.offsetRightS}` : '';
+    const offsetRightMClassname = (this.offsetRightM !== this.offsetRightS) || (COLUMNS.M !== COLUMNS.S) ?  `col-offset-right-m-${this.offsetRightM}` : '';
+    const offsetRightLClassname = (this.offsetRightL !== this.offsetRightM) || (COLUMNS.L !== COLUMNS.M) ?  `col-offset-right-l-${this.offsetRightL}` : '';
+    const offsetRightXLClassname = (this.offsetRightXL !== this.offsetRightL) || (COLUMNS.XL !== COLUMNS.L) ?  `col-offset-right-xl-${this.offsetRightXL}` : '';
 
     return `${offsetRightClassname} ${offsetRightSClassname} ${offsetRightMClassname} ${offsetRightLClassname} ${offsetRightXLClassname}`;
   }

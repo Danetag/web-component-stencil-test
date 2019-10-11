@@ -54,14 +54,12 @@
 
   /* Don't need the full panel of classes, just have of it */
   @for $i from $min-colums through ($max-colums) {
-    @if $i != 0 {
-      @if $size == "XS" {
-        .col-offset-#{$i} {
-          margin-left: $i * (100% / $max-colums);
+   
+      .col-offset-#{to-lower-case($size)}-#{$i} {
+        @if $size == "XS" {
+            margin-left: $i * (100% / $max-colums);
         }
-      }
 
-      .col-offset-#{$size}-#{$i} {
         @if $size == "S" {
           @include S {
             margin-left: $i * (100% / $max-colums);
@@ -86,19 +84,16 @@
           }
         }
       }
-    }
+    
   }
 
   /* Don't need the full panel of classes, just have of it */
   @for $i from $min-colums through ($max-colums / 2) {
     @if $i != 0 {
-      @if $size == "XS" {
-        .col-right-offset-#{$i} {
+      .col-offset-right-#{$size}-#{$i} {
+        @if $size == "XS" {
           margin-right: $i * (100% / $max-colums);
         }
-      }
-
-      .col-#{$size}-right-offset-#{$i} {
 
         @if $size == "S" {
           @include S {
