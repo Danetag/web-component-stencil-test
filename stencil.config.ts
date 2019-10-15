@@ -13,6 +13,7 @@ export const config: Config = {
   ],
   outputTargets: [
     {
+      // type: 'dist-hydrate-script',
       type: 'dist',
       esmLoaderPath: '../loader'
     },
