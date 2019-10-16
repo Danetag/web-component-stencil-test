@@ -231,7 +231,6 @@ export class Input {
       labelClassnames,
       inputClassnames,
       name,
-      type,
       currentValue,
     } = this;
     
@@ -240,6 +239,7 @@ export class Input {
 
     const id = this.getId();
     const pattern = this.pattern ? this.pattern : inputDefinition.pattern;
+    const type = inputDefinition.inputType;
     const patternDOM = this.formatPatternForDOM(pattern);
     const maxlength = this.maxlength > 0 ? this.maxlength : null;
 
