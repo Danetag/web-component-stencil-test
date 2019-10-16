@@ -103,6 +103,72 @@ export namespace Components {
     */
     'justifyContent': string;
   }
+  interface HrbInput {
+    /**
+    * Disabled
+    */
+    'disabled': boolean;
+    /**
+    * Get the current value of the input. To get a live value of the input, use element.addEventListener('input', () => element.getValue());
+    */
+    'getValue': () => Promise<string>;
+    /**
+    * Input id
+    */
+    'idInput': string;
+    /**
+    * Classnames for the <input /> element
+    */
+    'inputClassnames': string;
+    /**
+    * Test validation of the current input value.
+    */
+    'isValid': () => Promise<boolean>;
+    /**
+    * Label
+    */
+    'label': string;
+    /**
+    * Classnames for the <label> element
+    */
+    'labelClassnames': string;
+    /**
+    * Max Length
+    */
+    'maxlength': number;
+    /**
+    * Name
+    */
+    'name': string;
+    /**
+    * Pattern for validation
+    */
+    'pattern': RegExp;
+    /**
+    * placeholder
+    */
+    'placeholder': string;
+    /**
+    * Prefix
+    */
+    'prefixInput': string;
+    /**
+    * Read only
+    */
+    'readonly': boolean;
+    /**
+    * Required
+    */
+    'required': boolean;
+    /**
+    * tType
+    */
+    'type': string;
+    /**
+    * Value
+    */
+    'value': string;
+  }
   interface MyComponent {
     /**
     * The first name
@@ -156,6 +222,12 @@ declare global {
     new (): HTMLGridRowElement;
   };
 
+  interface HTMLHrbInputElement extends Components.HrbInput, HTMLStencilElement {}
+  var HTMLHrbInputElement: {
+    prototype: HTMLHrbInputElement;
+    new (): HTMLHrbInputElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -172,6 +244,7 @@ declare global {
     'grid-container': HTMLGridContainerElement;
     'grid-ghost': HTMLGridGhostElement;
     'grid-row': HTMLGridRowElement;
+    'hrb-input': HTMLHrbInputElement;
     'my-component': HTMLMyComponentElement;
     'simple-button': HTMLSimpleButtonElement;
   }
@@ -272,6 +345,64 @@ declare namespace LocalJSX {
     */
     'justifyContent'?: string;
   }
+  interface HrbInput {
+    /**
+    * Disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * Input id
+    */
+    'idInput'?: string;
+    /**
+    * Classnames for the <input /> element
+    */
+    'inputClassnames'?: string;
+    /**
+    * Label
+    */
+    'label'?: string;
+    /**
+    * Classnames for the <label> element
+    */
+    'labelClassnames'?: string;
+    /**
+    * Max Length
+    */
+    'maxlength'?: number;
+    /**
+    * Name
+    */
+    'name'?: string;
+    /**
+    * Pattern for validation
+    */
+    'pattern'?: RegExp;
+    /**
+    * placeholder
+    */
+    'placeholder'?: string;
+    /**
+    * Prefix
+    */
+    'prefixInput'?: string;
+    /**
+    * Read only
+    */
+    'readonly'?: boolean;
+    /**
+    * Required
+    */
+    'required'?: boolean;
+    /**
+    * tType
+    */
+    'type'?: string;
+    /**
+    * Value
+    */
+    'value'?: string;
+  }
   interface MyComponent {
     /**
     * The first name
@@ -302,6 +433,7 @@ declare namespace LocalJSX {
     'grid-container': GridContainer;
     'grid-ghost': GridGhost;
     'grid-row': GridRow;
+    'hrb-input': HrbInput;
     'my-component': MyComponent;
     'simple-button': SimpleButton;
   }
@@ -317,6 +449,7 @@ declare module "@stencil/core" {
       'grid-container': LocalJSX.GridContainer & JSXBase.HTMLAttributes<HTMLGridContainerElement>;
       'grid-ghost': LocalJSX.GridGhost & JSXBase.HTMLAttributes<HTMLGridGhostElement>;
       'grid-row': LocalJSX.GridRow & JSXBase.HTMLAttributes<HTMLGridRowElement>;
+      'hrb-input': LocalJSX.HrbInput & JSXBase.HTMLAttributes<HTMLHrbInputElement>;
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
       'simple-button': LocalJSX.SimpleButton & JSXBase.HTMLAttributes<HTMLSimpleButtonElement>;
     }
