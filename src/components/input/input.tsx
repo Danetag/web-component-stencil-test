@@ -144,10 +144,6 @@ export class Input {
   // }
 
   private onInput = ():void => {
-    this.isValid().then((valid) => {
-      console.log('isValid', valid);
-    });
-    
     this.currentValue = this.inputElement.value;
   }
 
