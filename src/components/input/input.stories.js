@@ -29,7 +29,7 @@ storiesOf('Test an input', module)
         el.addEventListener('input', async e => {
             const value = await el.getValue();
             const isValid = await el.isValid();
-            console.log('value', value, 'isValid', isValid);
+            console.log('value', value, 'isValid', isValid, 'e', e);
             return action('input')(e);
         });
 

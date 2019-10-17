@@ -1,4 +1,4 @@
-import { Component, Prop, h, State, Host, Method } from '@stencil/core';
+import { Component, Prop, h, State, Host, Method, Watch } from '@stencil/core';
 // import { INPUT_TYPES, InputDefinition, MAXLENGTH, REQUIRED, PATTERN } from '../form/constants';
 import { INPUT_TYPES, InputDefinition } from '../form/constants';
 
@@ -77,6 +77,10 @@ export class Input {
    * Value
    */
   @Prop() value: string = '';
+  @Watch('value')
+  watchHandler(newValue: string) {
+    this.parseValue(newValue);
+  }
 
   /**
    * Error state
@@ -144,7 +148,7 @@ export class Input {
   // }
 
   private onInput = ():void => {
-    this.currentValue = this.inputElement.value;
+    this.parseValue(this.inputElement.value);
   }
 
 
@@ -211,8 +215,12 @@ export class Input {
     return type;
   }
 
+  private parseValue(str: string):void {
+    this.currentValue = (str || '').replace(/[^AEIOU]/ig, '');
+  }
+
   componentWillLoad() {
-    this.currentValue = this.value;
+    this.parseValue(this.value);
     this.inputDefinition = this.getTypeObject();
   }
 
