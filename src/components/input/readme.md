@@ -20,7 +20,7 @@
 | `prefixInput`     | `prefix-input`     | Prefix                               | `string`  | `""`     |
 | `readonly`        | `readonly`         | Read only                            | `boolean` | `false`  |
 | `required`        | `required`         | Required                             | `boolean` | `false`  |
-| `type`            | `type`             | tType                                | `string`  | `"text"` |
+| `type`            | `type`             | Type                                 | `string`  | `"text"` |
 | `value`           | `value`            | Value                                | `string`  | `''`     |
 
 

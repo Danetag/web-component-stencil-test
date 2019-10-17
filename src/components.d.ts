@@ -161,7 +161,7 @@ export namespace Components {
     */
     'required': boolean;
     /**
-    * tType
+    * Type
     */
     'type': string;
     /**
@@ -395,7 +395,7 @@ declare namespace LocalJSX {
     */
     'required'?: boolean;
     /**
-    * tType
+    * Type
     */
     'type'?: string;
     /**
