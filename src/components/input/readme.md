@@ -26,9 +26,9 @@
 
 ## Events
 
-| Event          | Description | Type               |
-| -------------- | ----------- | ------------------ |
-| `tiggerChange` |             | `CustomEvent<any>` |
+| Event         | Description | Type               |
+| ------------- | ----------- | ------------------ |
+| `valueChange` |             | `CustomEvent<any>` |
 
 
 ## Methods
