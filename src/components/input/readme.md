@@ -24,6 +24,13 @@
 | `value`           | `value`            | Value                                | `string`  | `''`     |
 
 
+## Events
+
+| Event          | Description | Type               |
+| -------------- | ----------- | ------------------ |
+| `tiggerChange` |             | `CustomEvent<any>` |
+
+
 ## Methods
 
 ### `getValue() => Promise<string>`
