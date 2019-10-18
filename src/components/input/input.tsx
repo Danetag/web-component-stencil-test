@@ -1,4 +1,4 @@
-import { Component, Prop, h, State, Host, Method, Watch } from '@stencil/core';
+import { Component, Prop, h, State, Host, Method, Watch, Event, EventEmitter } from '@stencil/core';
 // import { INPUT_TYPES, InputDefinition, MAXLENGTH, REQUIRED, PATTERN } from '../form/constants';
 import { INPUT_TYPES, InputDefinition } from '../form/constants';
 
@@ -129,9 +129,15 @@ export class Input {
     return isValid;
   }
 
+  /*
+   * Make sure we trigger the onChange event so ngModel can capture it
+   */
+  @Event() tiggerChange: EventEmitter;
+  tiggerChangeHandler(event: any) {
+    this.tiggerChange.emit(event.target.value);
+  }
 
   private inputElement: HTMLInputElement;
-
 
   private formatPatternForDOM(pattern: RegExp): string {
     if (!pattern) return null;
@@ -146,6 +152,11 @@ export class Input {
   //   this.error = error;
   //   this.errorMessage = errorMessage;
   // }
+
+
+  private onChange = (e: Event): void => {
+    this.tiggerChangeHandler(e)
+  }
 
   private onInput = ():void => {
     this.parseValue(this.inputElement.value);
@@ -229,17 +240,17 @@ export class Input {
     let {
       inputDefinition,
       onInput,
+      onChange,
       required,
       label,
       placeholder,
       labelClassnames,
       inputClassnames,
       name,
-      currentValue,
     } = this;
     
     // state
-    const { error } = this;
+    const { error, currentValue } = this;
 
     const id = this.getId();
     const pattern = this.pattern ? this.pattern : inputDefinition.pattern;
@@ -259,6 +270,7 @@ export class Input {
           name={name}
           id={id}
           onInput={onInput}
+          onChange={onChange}
           maxLength={maxlength}
           pattern={patternDOM}
           required={required}

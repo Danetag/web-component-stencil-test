@@ -374,6 +374,7 @@ declare namespace LocalJSX {
     * Name
     */
     'name'?: string;
+    'onTiggerChange'?: (event: CustomEvent<any>) => void;
     /**
     * Pattern for validation
     */
