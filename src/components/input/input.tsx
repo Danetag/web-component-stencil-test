@@ -132,9 +132,10 @@ export class Input {
   /*
    * Make sure we trigger the onChange event so ngModel can capture it
    */
-  @Event() tiggerChange: EventEmitter;
-  tiggerChangeHandler(event: any) {
-    this.tiggerChange.emit(event.target.value);
+  @Event() valueChange: EventEmitter;
+  valueChanged(event: any) {
+    // this.parseValue(event.target.value);
+    this.valueChange.emit(event.target.value);
   }
 
   private inputElement: HTMLInputElement;
@@ -155,11 +156,12 @@ export class Input {
 
 
   private onChange = (e: Event): void => {
-    this.tiggerChangeHandler(e)
+    this.valueChanged(e);
   }
 
   private onInput = ():void => {
     this.parseValue(this.inputElement.value);
+    this.valueChange.emit(this.currentValue);
   }
 
 
