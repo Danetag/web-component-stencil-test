@@ -216,7 +216,7 @@ export class Input {
   }
 
   private parseValue(str: string):void {
-    this.currentValue = (str || '').replace(/[^AEIOU]/ig, '');
+    this.currentValue = str;
   }
 
   componentWillLoad() {

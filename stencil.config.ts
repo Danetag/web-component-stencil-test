@@ -22,6 +22,9 @@ export const config: Config = {
     },
     {
       type: 'www',
+      prerenderLocations: [
+        { path: '/button' }
+      ],
       serviceWorker: null // disable service workers
     }
   ]
