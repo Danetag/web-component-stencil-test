@@ -1,6 +1,6 @@
 {
   "name": "web-component-stencil-test",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Stencil Component Starter",
   "author": "Arnaud Tanielian <tanielian@work.co>",
   "main": "dist/index.js",

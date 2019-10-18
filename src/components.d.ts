@@ -374,7 +374,7 @@ declare namespace LocalJSX {
     * Name
     */
     'name'?: string;
-    'onValueChange'?: (event: CustomEvent<any>) => void;
+    'onValueChanges'?: (event: CustomEvent<any>) => void;
     /**
     * Pattern for validation
     */

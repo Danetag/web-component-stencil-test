@@ -26,9 +26,9 @@
 
 ## Events
 
-| Event         | Description | Type               |
-| ------------- | ----------- | ------------------ |
-| `valueChange` |             | `CustomEvent<any>` |
+| Event          | Description | Type               |
+| -------------- | ----------- | ------------------ |
+| `valueChanges` |             | `CustomEvent<any>` |
 
 
 ## Methods
