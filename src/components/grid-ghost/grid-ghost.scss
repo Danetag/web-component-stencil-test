@@ -1,4 +1,4 @@
-@import "../../globals/breakpoints";
+@use "../../globals/breakpoints" as *;
 
 .grid-ghost {
     width: 100%;

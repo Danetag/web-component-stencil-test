@@ -1,7 +1,6 @@
-@import "./variables";
+@forward "./variables";
+@forward "./breakpoints";
+@forward "./mixins";
+@forward "./ease";
 
-// Base
-@import "./breakpoints";
-@import "./mixins";
-@import "./ease";
-@import "./global";
+@use "./global";

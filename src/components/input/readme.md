@@ -6,36 +6,36 @@
 
 ## Properties
 
-| Property          | Attribute          | Description                          | Type      | Default  |
-| ----------------- | ------------------ | ------------------------------------ | --------- | -------- |
-| `disabled`        | `disabled`         | Disabled                             | `boolean` | `false`  |
-| `idInput`         | `id-input`         | Input id                             | `string`  | `''`     |
-| `inputClassnames` | `input-classnames` | Classnames for the <input /> element | `string`  | `''`     |
-| `label`           | `label`            | Label                                | `string`  | `null`   |
-| `labelClassnames` | `label-classnames` | Classnames for the <label> element   | `string`  | `''`     |
-| `maxlength`       | `maxlength`        | Max Length                           | `number`  | `0`      |
-| `name`            | `name`             | Name                                 | `string`  | `""`     |
-| `pattern`         | --                 | Pattern for validation               | `RegExp`  | `null`   |
-| `placeholder`     | `placeholder`      | placeholder                          | `string`  | `null`   |
-| `prefixInput`     | `prefix-input`     | Prefix                               | `string`  | `""`     |
-| `readonly`        | `readonly`         | Read only                            | `boolean` | `false`  |
-| `required`        | `required`         | Required                             | `boolean` | `false`  |
-| `type`            | `type`             | Type                                 | `string`  | `"text"` |
-| `value`           | `value`            | Value                                | `string`  | `''`     |
+| Property          | Attribute          | Description                                                                                                                                                                    | Type                            | Default     |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------- | ----------- |
+| `disabled`        | `disabled`         |                                                                                                                                                                                | `boolean`                       | `false`     |
+| `idInput`         | `id-input`         |                                                                                                                                                                                | `string`                        | `''`        |
+| `inputClassnames` | `input-classnames` |                                                                                                                                                                                | `string`                        | `''`        |
+| `label`           | `label`            |                                                                                                                                                                                | `string \| undefined`           | `undefined` |
+| `labelClassnames` | `label-classnames` |                                                                                                                                                                                | `string`                        | `''`        |
+| `maxlength`       | `maxlength`        |                                                                                                                                                                                | `number`                        | `0`         |
+| `name`            | `name`             |                                                                                                                                                                                | `string`                        | `''`        |
+| `pattern`         | `pattern`          | Pattern used by isValid(). String patterns and programmatic RegExp values are supported. String patterns retain the component's historical partial-match validation semantics. | `RegExp \| string \| undefined` | `undefined` |
+| `placeholder`     | `placeholder`      |                                                                                                                                                                                | `string \| undefined`           | `undefined` |
+| `prefixInput`     | `prefix-input`     |                                                                                                                                                                                | `string`                        | `''`        |
+| `readonly`        | `readonly`         |                                                                                                                                                                                | `boolean`                       | `false`     |
+| `required`        | `required`         |                                                                                                                                                                                | `boolean`                       | `false`     |
+| `type`            | `type`             |                                                                                                                                                                                | `string`                        | `'text'`    |
+| `value`           | `value`            |                                                                                                                                                                                | `string`                        | `''`        |
 
 
 ## Events
 
-| Event          | Description | Type               |
-| -------------- | ----------- | ------------------ |
-| `valueChanges` |             | `CustomEvent<any>` |
+| Event          | Description | Type                  |
+| -------------- | ----------- | --------------------- |
+| `valueChanges` |             | `CustomEvent<string>` |
 
 
 ## Methods
 
 ### `getValue() => Promise<string>`
 
-Get the current value of the input. To get a live value of the input, use element.addEventListener('input', () => element.getValue());
+Return the input's current value.
 
 #### Returns
 
@@ -45,7 +45,7 @@ Type: `Promise<string>`
 
 ### `isValid() => Promise<boolean>`
 
-Test validation of the current input value.
+Validate the input's current value against its configured constraints.
 
 #### Returns
 

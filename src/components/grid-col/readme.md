@@ -33,6 +33,13 @@
 | `offsetXL`      | `offset-xl`       | Offset - XL                                                        | `number`  | `0`     |
 
 
+## Slots
+
+| Slot | Description      |
+| ---- | ---------------- |
+|      | The default slot |
+
+
 ## Dependencies
 
 ### Used by

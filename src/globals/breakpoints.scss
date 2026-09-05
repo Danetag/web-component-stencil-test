@@ -1,4 +1,4 @@
-@import "./variables";
+@use "./variables" as *;
 
 @mixin S {
   @media (min-width: #{$bp-S}) {

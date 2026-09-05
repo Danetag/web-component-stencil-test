@@ -23,6 +23,13 @@
 | `justifyContent` | `justify-content` | Justify content           | `string`  | `''`    |
 
 
+## Slots
+
+| Slot | Description      |
+| ---- | ---------------- |
+|      | The default slot |
+
+
 ## Dependencies
 
 ### Used by

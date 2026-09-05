@@ -1,45 +1,48 @@
-import { Component, Prop, Watch, State, h } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
+
+const THEMES = ['primary', 'secondary'] as const;
 
 @Component({
   tag: 'simple-button',
   styleUrl: 'simple-button.scss',
-  shadow: false
+  shadow: false,
 })
 export class SimpleButton {
-  /**
-   * Show number of clicks
-   */
-  @Prop({attribute: 'show-click'}) showNbOfClick: boolean = false;
+  /** Show the number of clicks. */
+  @Prop({ attribute: 'show-click' }) showNbOfClick = false;
 
-  /**
-   * theme
-   */
-  @Prop() theme: string = 'primary';
+  /** Visual theme. */
+  @Prop() theme: 'primary' | 'secondary' = 'primary';
+
+  @State() nbOfClicks = 0;
+
   @Watch('theme')
-  validateTheme(newValue: string) {
-    const themes = ['primary', 'secondary'];
-    const themeIsValidate = themes.indexOf(newValue) > -1;
-    
-    if (!themeIsValidate) { throw new Error('theme: not a valide theme')  }
+  validateTheme(theme: string): void {
+    if (!(THEMES as readonly string[]).includes(theme)) {
+      console.warn(`Invalid simple-button theme "${theme}"; using "primary".`);
+    }
   }
 
-  /**
-   * Number of clicks
-   */
-  @State() nbOfClicks: number = 0;
-
-  componentWillLoad() {
+  componentWillLoad(): void {
     this.validateTheme(this.theme);
   }
 
-  handleClick = () => {
+  private handleClick = (): void => {
     this.nbOfClicks += 1;
-  }
+  };
 
   render() {
-    return <button class={`simple-button ${this.theme}`} onClick={ this.handleClick }>
-      <span class="label"><slot /></span>
-      { this.showNbOfClick && this.nbOfClicks > 0 && (<span class="nb-of-clicks">{` - ${this.nbOfClicks}`}</span>) }
-    </button>;
+    const theme = THEMES.includes(this.theme) ? this.theme : 'primary';
+
+    return (
+      <button class={`simple-button ${theme}`} type="button" onClick={this.handleClick}>
+        <span class="label">
+          <slot />
+        </span>
+        {this.showNbOfClick && this.nbOfClicks > 0 && (
+          <span class="nb-of-clicks">{` - ${this.nbOfClicks}`}</span>
+        )}
+      </button>
+    );
   }
 }
