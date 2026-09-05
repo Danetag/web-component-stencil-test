@@ -124,6 +124,9 @@ export namespace Components {
          */
         "justifyContent": string;
     }
+    /**
+     * @deprecated Use simple-input. This adapter retains the pre-0.4 input API.
+     */
     interface HrbInput {
         /**
           * @default false
@@ -142,7 +145,7 @@ export namespace Components {
          */
         "inputClassnames": string;
         /**
-          * Validate the input's current value against its configured constraints.
+          * Legacy required/maxlength/pattern check, not the full native constraint-validation API.
          */
         "isValid": () => Promise<boolean>;
         "label"?: string;
@@ -159,7 +162,7 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Pattern used by isValid(). String patterns and programmatic RegExp values are supported. String patterns retain the component's historical partial-match validation semantics.
+          * String or programmatic RegExp; preserves historical partial-match validation.
          */
         "pattern"?: string | RegExp;
         "placeholder"?: string;
@@ -200,6 +203,36 @@ export namespace Components {
     }
     interface SimpleButton {
         /**
+          * Accessible name on the native button. Prefer visible slotted text.
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Space-separated IDs of descriptions for the native button (aria-describedby).
+         */
+        "describedBy"?: string;
+        /**
+          * Disable the native button, including keyboard activation.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * ID of the form owning the native button.
+         */
+        "form"?: string;
+        /**
+          * Skip native form validation when this button submits.
+          * @default false
+         */
+        "formnovalidate": boolean;
+        /**
+          * ID on the native button; host id stays on the custom element.
+         */
+        "idButton"?: string;
+        /**
+          * Native submitter name.
+         */
+        "name"?: string;
+        /**
           * Show the number of clicks.
           * @default false
          */
@@ -209,11 +242,142 @@ export namespace Components {
           * @default 'primary'
          */
         "theme": 'primary' | 'secondary';
+        /**
+          * Native button behavior; defaults to button to avoid accidental submission.
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
+        /**
+          * Native submitter value.
+         */
+        "value"?: string;
+    }
+    interface SimpleInput {
+        /**
+          * Accessible name on the native input when no visible label is available. Prefer label.
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Native autocomplete token(s), such as email or current-password.
+         */
+        "autocomplete"?: string;
+        /**
+          * Space-separated IDs of descriptions for the native input (aria-describedby).
+         */
+        "describedBy"?: string;
+        /**
+          * Disable the native input and omit it from form submission.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * ID of the form owning the native input.
+         */
+        "form"?: string;
+        /**
+          * Return the input's current value.
+         */
+        "getValue": () => Promise<string>;
+        /**
+          * Native input ID (host id stays on the custom element). Use a unique ID per control.
+          * @default ''
+         */
+        "idInput": string;
+        /**
+          * Additional classes on the native input, not the host.
+          * @default ''
+         */
+        "inputClassnames": string;
+        /**
+          * Native virtual-keyboard hint.
+         */
+        "inputmode"?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+          * Legacy required/maxlength/pattern check, not the full native constraint-validation API.
+         */
+        "isValid": () => Promise<boolean>;
+        /**
+          * Visible label associated with the native input.
+         */
+        "label"?: string;
+        /**
+          * Additional classes on the label, not the host.
+          * @default ''
+         */
+        "labelClassnames": string;
+        /**
+          * Native maximum value for number/date-like inputs.
+         */
+        "max"?: string;
+        /**
+          * Native maximum length; zero means no limit for compatibility.
+          * @default 0
+         */
+        "maxlength": number;
+        /**
+          * Native minimum value for number/date-like inputs.
+         */
+        "min"?: string;
+        /**
+          * Native minimum length; checked by browser validity, not isValid().
+         */
+        "minlength"?: number;
+        /**
+          * Allow multiple values for native types that support it.
+          * @default false
+         */
+        "multiple": boolean;
+        /**
+          * Native input name used in form submission.
+          * @default ''
+         */
+        "name": string;
+        /**
+          * Pattern used by isValid(). String patterns and programmatic RegExp values are supported. String patterns retain the component's historical partial-match validation semantics.
+         */
+        "pattern"?: string | RegExp;
+        /**
+          * Native placeholder; not a replacement for a label.
+         */
+        "placeholder"?: string;
+        /**
+          * Prefix for the native input ID when name is provided; prefer idInput.
+          * @default ''
+         */
+        "prefixInput": string;
+        /**
+          * Make the native input read-only.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Native required constraint.
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Native step interval, or any.
+         */
+        "step"?: string;
+        /**
+          * Native input type, or the legacy zip-code preset (text with a US ZIP pattern).
+          * @default 'text'
+         */
+        "type": string;
+        /**
+          * Set the current value; user edits are exposed through getValue() and valueChanges.
+          * @default ''
+         */
+        "value": string;
     }
 }
 export interface HrbInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLHrbInputElement;
+}
+export interface SimpleInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSimpleInputElement;
 }
 declare global {
     interface HTMLGridColElement extends Components.GridCol, HTMLStencilElement {
@@ -243,6 +407,9 @@ declare global {
     interface HTMLHrbInputElementEventMap {
         "valueChanges": string;
     }
+    /**
+     * @deprecated Use simple-input. This adapter retains the pre-0.4 input API.
+     */
     interface HTMLHrbInputElement extends Components.HrbInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLHrbInputElementEventMap>(type: K, listener: (this: HTMLHrbInputElement, ev: HrbInputCustomEvent<HTMLHrbInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -269,6 +436,23 @@ declare global {
         prototype: HTMLSimpleButtonElement;
         new (): HTMLSimpleButtonElement;
     };
+    interface HTMLSimpleInputElementEventMap {
+        "valueChanges": string;
+    }
+    interface HTMLSimpleInputElement extends Components.SimpleInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSimpleInputElementEventMap>(type: K, listener: (this: HTMLSimpleInputElement, ev: SimpleInputCustomEvent<HTMLSimpleInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSimpleInputElementEventMap>(type: K, listener: (this: HTMLSimpleInputElement, ev: SimpleInputCustomEvent<HTMLSimpleInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSimpleInputElement: {
+        prototype: HTMLSimpleInputElement;
+        new (): HTMLSimpleInputElement;
+    };
     interface HTMLElementTagNameMap {
         "grid-col": HTMLGridColElement;
         "grid-container": HTMLGridContainerElement;
@@ -277,6 +461,7 @@ declare global {
         "hrb-input": HTMLHrbInputElement;
         "my-component": HTMLMyComponentElement;
         "simple-button": HTMLSimpleButtonElement;
+        "simple-input": HTMLSimpleInputElement;
     }
 }
 declare namespace LocalJSX {
@@ -398,6 +583,9 @@ declare namespace LocalJSX {
          */
         "justifyContent"?: string;
     }
+    /**
+     * @deprecated Use simple-input. This adapter retains the pre-0.4 input API.
+     */
     interface HrbInput {
         /**
           * @default false
@@ -424,9 +612,12 @@ declare namespace LocalJSX {
           * @default ''
          */
         "name"?: string;
+        /**
+          * Emitted once on the legacy host, preserving its event target and payload.
+         */
         "onValueChanges"?: (event: HrbInputCustomEvent<string>) => void;
         /**
-          * Pattern used by isValid(). String patterns and programmatic RegExp values are supported. String patterns retain the component's historical partial-match validation semantics.
+          * String or programmatic RegExp; preserves historical partial-match validation.
          */
         "pattern"?: string | RegExp;
         "placeholder"?: string;
@@ -467,6 +658,36 @@ declare namespace LocalJSX {
     }
     interface SimpleButton {
         /**
+          * Accessible name on the native button. Prefer visible slotted text.
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Space-separated IDs of descriptions for the native button (aria-describedby).
+         */
+        "describedBy"?: string;
+        /**
+          * Disable the native button, including keyboard activation.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * ID of the form owning the native button.
+         */
+        "form"?: string;
+        /**
+          * Skip native form validation when this button submits.
+          * @default false
+         */
+        "formnovalidate"?: boolean;
+        /**
+          * ID on the native button; host id stays on the custom element.
+         */
+        "idButton"?: string;
+        /**
+          * Native submitter name.
+         */
+        "name"?: string;
+        /**
           * Show the number of clicks.
           * @default false
          */
@@ -476,6 +697,129 @@ declare namespace LocalJSX {
           * @default 'primary'
          */
         "theme"?: 'primary' | 'secondary';
+        /**
+          * Native button behavior; defaults to button to avoid accidental submission.
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * Native submitter value.
+         */
+        "value"?: string;
+    }
+    interface SimpleInput {
+        /**
+          * Accessible name on the native input when no visible label is available. Prefer label.
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Native autocomplete token(s), such as email or current-password.
+         */
+        "autocomplete"?: string;
+        /**
+          * Space-separated IDs of descriptions for the native input (aria-describedby).
+         */
+        "describedBy"?: string;
+        /**
+          * Disable the native input and omit it from form submission.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * ID of the form owning the native input.
+         */
+        "form"?: string;
+        /**
+          * Native input ID (host id stays on the custom element). Use a unique ID per control.
+          * @default ''
+         */
+        "idInput"?: string;
+        /**
+          * Additional classes on the native input, not the host.
+          * @default ''
+         */
+        "inputClassnames"?: string;
+        /**
+          * Native virtual-keyboard hint.
+         */
+        "inputmode"?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+          * Visible label associated with the native input.
+         */
+        "label"?: string;
+        /**
+          * Additional classes on the label, not the host.
+          * @default ''
+         */
+        "labelClassnames"?: string;
+        /**
+          * Native maximum value for number/date-like inputs.
+         */
+        "max"?: string;
+        /**
+          * Native maximum length; zero means no limit for compatibility.
+          * @default 0
+         */
+        "maxlength"?: number;
+        /**
+          * Native minimum value for number/date-like inputs.
+         */
+        "min"?: string;
+        /**
+          * Native minimum length; checked by browser validity, not isValid().
+         */
+        "minlength"?: number;
+        /**
+          * Allow multiple values for native types that support it.
+          * @default false
+         */
+        "multiple"?: boolean;
+        /**
+          * Native input name used in form submission.
+          * @default ''
+         */
+        "name"?: string;
+        /**
+          * Emitted with the current value on native input and change events.
+         */
+        "onValueChanges"?: (event: SimpleInputCustomEvent<string>) => void;
+        /**
+          * Pattern used by isValid(). String patterns and programmatic RegExp values are supported. String patterns retain the component's historical partial-match validation semantics.
+         */
+        "pattern"?: string | RegExp;
+        /**
+          * Native placeholder; not a replacement for a label.
+         */
+        "placeholder"?: string;
+        /**
+          * Prefix for the native input ID when name is provided; prefer idInput.
+          * @default ''
+         */
+        "prefixInput"?: string;
+        /**
+          * Make the native input read-only.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Native required constraint.
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Native step interval, or any.
+         */
+        "step"?: string;
+        /**
+          * Native input type, or the legacy zip-code preset (text with a US ZIP pattern).
+          * @default 'text'
+         */
+        "type"?: string;
+        /**
+          * Set the current value; user edits are exposed through getValue() and valueChanges.
+          * @default ''
+         */
+        "value"?: string;
     }
 
     interface GridColAttributes {
@@ -528,6 +872,41 @@ declare namespace LocalJSX {
     interface SimpleButtonAttributes {
         "showNbOfClick": boolean;
         "theme": 'primary' | 'secondary';
+        "type": 'button' | 'submit' | 'reset';
+        "disabled": boolean;
+        "name": string;
+        "value": string;
+        "form": string;
+        "formnovalidate": boolean;
+        "idButton": string;
+        "accessibleLabel": string;
+        "describedBy": string;
+    }
+    interface SimpleInputAttributes {
+        "name": string;
+        "prefixInput": string;
+        "type": string;
+        "required": boolean;
+        "readonly": boolean;
+        "disabled": boolean;
+        "pattern": string | RegExp;
+        "maxlength": number;
+        "label": string;
+        "placeholder": string;
+        "labelClassnames": string;
+        "inputClassnames": string;
+        "idInput": string;
+        "value": string;
+        "autocomplete": string;
+        "inputmode": 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        "min": string;
+        "max": string;
+        "step": string;
+        "minlength": number;
+        "multiple": boolean;
+        "form": string;
+        "accessibleLabel": string;
+        "describedBy": string;
     }
 
     interface IntrinsicElements {
@@ -538,6 +917,7 @@ declare namespace LocalJSX {
         "hrb-input": Omit<HrbInput, keyof HrbInputAttributes> & { [K in keyof HrbInput & keyof HrbInputAttributes]?: HrbInput[K] } & { [K in keyof HrbInput & keyof HrbInputAttributes as `attr:${K}`]?: HrbInputAttributes[K] } & { [K in keyof HrbInput & keyof HrbInputAttributes as `prop:${K}`]?: HrbInput[K] };
         "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
         "simple-button": Omit<SimpleButton, keyof SimpleButtonAttributes> & { [K in keyof SimpleButton & keyof SimpleButtonAttributes]?: SimpleButton[K] } & { [K in keyof SimpleButton & keyof SimpleButtonAttributes as `attr:${K}`]?: SimpleButtonAttributes[K] } & { [K in keyof SimpleButton & keyof SimpleButtonAttributes as `prop:${K}`]?: SimpleButton[K] };
+        "simple-input": Omit<SimpleInput, keyof SimpleInputAttributes> & { [K in keyof SimpleInput & keyof SimpleInputAttributes]?: SimpleInput[K] } & { [K in keyof SimpleInput & keyof SimpleInputAttributes as `attr:${K}`]?: SimpleInputAttributes[K] } & { [K in keyof SimpleInput & keyof SimpleInputAttributes as `prop:${K}`]?: SimpleInput[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -548,9 +928,13 @@ declare module "@stencil/core" {
             "grid-container": LocalJSX.IntrinsicElements["grid-container"] & JSXBase.HTMLAttributes<HTMLGridContainerElement>;
             "grid-ghost": LocalJSX.IntrinsicElements["grid-ghost"] & JSXBase.HTMLAttributes<HTMLGridGhostElement>;
             "grid-row": LocalJSX.IntrinsicElements["grid-row"] & JSXBase.HTMLAttributes<HTMLGridRowElement>;
+            /**
+             * @deprecated Use simple-input. This adapter retains the pre-0.4 input API.
+             */
             "hrb-input": LocalJSX.IntrinsicElements["hrb-input"] & JSXBase.HTMLAttributes<HTMLHrbInputElement>;
             "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "simple-button": LocalJSX.IntrinsicElements["simple-button"] & JSXBase.HTMLAttributes<HTMLSimpleButtonElement>;
+            "simple-input": LocalJSX.IntrinsicElements["simple-input"] & JSXBase.HTMLAttributes<HTMLSimpleInputElement>;
         }
     }
 }
