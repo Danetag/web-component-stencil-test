@@ -1,4 +1,5 @@
-@import "../../globals/mixins";
+@use "../../globals/mixins" as *;
+@use "../../globals/variables" as *;
 
 .grid-col {
     display: flex;

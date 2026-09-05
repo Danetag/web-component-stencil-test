@@ -11,10 +11,17 @@
 
 ## Properties
 
-| Property        | Attribute    | Description           | Type      | Default     |
-| --------------- | ------------ | --------------------- | --------- | ----------- |
-| `showNbOfClick` | `show-click` | Show number of clicks | `boolean` | `false`     |
-| `theme`         | `theme`      | theme                 | `string`  | `'primary'` |
+| Property        | Attribute    | Description                | Type                       | Default     |
+| --------------- | ------------ | -------------------------- | -------------------------- | ----------- |
+| `showNbOfClick` | `show-click` | Show the number of clicks. | `boolean`                  | `false`     |
+| `theme`         | `theme`      | Visual theme.              | `"primary" \| "secondary"` | `'primary'` |
+
+
+## Slots
+
+| Slot | Description      |
+| ---- | ---------------- |
+|      | The default slot |
 
 
 ----------------------------------------------

@@ -1,125 +1,59 @@
-@import "./variables";
+@use "sass:math";
+@use "sass:string";
+@use "./breakpoints" as *;
 
+@mixin at-grid-breakpoint($size) {
+  @if $size == "XS" {
+    @content;
+  } @else if $size == "S" {
+    @include S { @content; }
+  } @else if $size == "M" {
+    @include M { @content; }
+  } @else if $size == "L" {
+    @include L { @content; }
+  } @else if $size == "XL" {
+    @include XL { @content; }
+  }
+}
 
-@mixin generate-flexbox-grid($size, $min-colums, $max-colums, $gutter) {
-  // Mixin to generate the flexbox grid
-  @for $i from $min-colums through $max-colums {
+@mixin generate-flexbox-grid($size, $min-columns, $max-columns, $gutter) {
+  $size-name: string.to-lower-case($size);
+  $column-width: math.div(100%, $max-columns);
+
+  @for $i from $min-columns through $max-columns {
     @if $i != 0 {
-      .col-#{to-lower-case($size)}-#{$i} {
-        @if $size == "XS" {
-          flex-basis: $i * (100% / $max-colums);
-          width: $i * (100% / $max-colums);
-          max-width: #{($i * (100% / $max-colums))};
-          @if $gutter != 0 { padding-right: $gutter + px; }
-        }
+      .col-#{$size-name}-#{$i} {
+        @include at-grid-breakpoint($size) {
+          flex-basis: $i * $column-width;
+          width: $i * $column-width;
+          max-width: $i * $column-width;
 
-        @if $size == "S" {
-          @include S {
-            flex-basis: $i * (100% / $max-colums);
-            width: $i * (100% / $max-colums);
-            max-width: #{($i * (100% / $max-colums))};
-            @if $gutter != 0 { padding-right: $gutter + px; }
-          }
-        }
-
-        @if $size == "M" {
-          @include M {
-            flex-basis: $i * (100% / $max-colums);
-            width: $i * (100% / $max-colums);
-            max-width: #{($i * (100% / $max-colums))};
-            @if $gutter != 0 { padding-right: $gutter + px; }
-          }
-        }
-
-        @if $size == "L" {
-          @include L {
-            flex-basis: $i * (100% / $max-colums);
-            width: $i * (100% / $max-colums);
-            max-width: #{($i * (100% / $max-colums))};
-            @if $gutter != 0 { padding-right: $gutter + px; }
-          }
-        }
-
-        @if $size == "XL" {
-          @include XL {
-            flex-basis: $i * (100% / $max-colums);
-            width: $i * (100% / $max-colums);
-            max-width: #{($i * (100% / $max-colums))};
-            @if $gutter != 0 { padding-right: $gutter + px; }
+          @if $gutter != 0 {
+            padding-right: $gutter * 1px;
           }
         }
       }
     }
   }
 
-  /* Don't need the full panel of classes, just have of it */
-  @for $i from $min-colums through ($max-colums) {
-   
-      .col-offset-#{to-lower-case($size)}-#{$i} {
-        @if $size == "XS" {
-            margin-left: $i * (100% / $max-colums);
-        }
-
-        @if $size == "S" {
-          @include S {
-            margin-left: $i * (100% / $max-colums);
-          }
-        }
-
-        @if $size == "M" {
-          @include M {
-            margin-left: $i * (100% / $max-colums);
-          }
-        }
-
-        @if $size == "L" {
-          @include L {
-            margin-left: $i * (100% / $max-colums);
-          }
-        }
-
-        @if $size == "XL" {
-          @include XL {
-            margin-left: $i * (100% / $max-colums);
-          }
-        }
+  @for $i from $min-columns through $max-columns {
+    .col-offset-#{$size-name}-#{$i} {
+      @include at-grid-breakpoint($size) {
+        margin-left: $i * $column-width;
       }
-    
+    }
   }
 
-  /* Don't need the full panel of classes, just have of it */
-  @for $i from $min-colums through ($max-colums / 2) {
+  @for $i from $min-columns through math.div($max-columns, 2) {
     @if $i != 0 {
+      // Keep the historical uppercase selector as an alias while exposing
+      // lowercase breakpoint names consistently with the other grid classes.
+      .col-offset-right-#{$size-name}-#{$i},
       .col-offset-right-#{$size}-#{$i} {
-        @if $size == "XS" {
-          margin-right: $i * (100% / $max-colums);
-        }
-
-        @if $size == "S" {
-          @include S {
-            margin-right: $i * (100% / $max-colums);
-          }
-        }
-
-        @if $size == "M" {
-          @include M {
-            margin-right: $i * (100% / $max-colums);
-          }
-        }
-
-        @if $size == "L" {
-          @include L {
-            margin-right: $i * (100% / $max-colums);
-          }
-        }
-
-        @if $size == "XL" {
-          @include XL {
-            margin-right: $i * (100% / $max-colums);
-          }
+        @include at-grid-breakpoint($size) {
+          margin-right: $i * $column-width;
         }
       }
     }
   }
-
 }

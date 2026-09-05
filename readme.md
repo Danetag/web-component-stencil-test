@@ -1,124 +1,64 @@
-![Built With Stencil](https://img.shields.io/badge/-Built%20With%20Stencil-16161d.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI%2BCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI%2BCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU%2BCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQuNywzNzMuOWMwLDM3LjYtNTUuMSw2OC42LTkyLjcsNjguNkgxODAuNGMtMzcuOSwwLTkyLjctMzAuNy05Mi43LTY4LjZ2LTMuNmgzMzYuOVYzNzMuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNC43LDI5Mi4xSDE4MC40Yy0zNy42LDAtOTIuNy0zMS05Mi43LTY4LjZ2LTMuNkgzMzJjMzcuNiwwLDkyLjcsMzEsOTIuNyw2OC42VjI5Mi4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDI0LjcsMTQxLjdIODcuN3YtMy42YzAtMzcuNiw1NC44LTY4LjYsOTIuNy02OC42SDMzMmMzNy45LDAsOTIuNywzMC43LDkyLjcsNjguNlYxNDEuN3oiLz4KPC9zdmc%2BCg%3D%3D&colorA=16161d&style=flat-square)
+# web-component-stencil-test
 
-# Stencil Component Starter
+A small web component library built with [Stencil](https://stenciljs.com/). It includes responsive grid primitives, a validated input, and example button and greeting components.
 
-This is a starter project for building a standalone Web Component using Stencil.
+## Requirements
 
-Stencil is also great for building entire apps. For that, use the [stencil-app-starter](https://github.com/ionic-team/stencil-app-starter) instead.
+- Node.js 20 or 22
+- npm 10 or newer
 
-# Stencil
-
-Stencil is a compiler for building fast web apps using Web Components.
-
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
-
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
-
-## Getting Started
-
-To start building a new web component using Stencil, clone this repo to a new directory:
+## Development
 
 ```bash
-git clone https://github.com/ionic-team/stencil-component-starter.git my-component
-cd my-component
-git remote rm origin
-```
-
-and run:
-
-```bash
-npm install
+npm ci
 npm start
 ```
 
-To build the component for production, run:
+The development server rebuilds components as files change.
+
+## Verification
+
+```bash
+npm run typecheck
+npm test
+npm run test:e2e
+npm run build
+npm pack --dry-run
+```
+
+`npm test` runs all Jest component specs with Stencil's mock DOM. `npm run test:e2e` runs the browser smoke tests separately so local unit-test iterations stay fast.
+
+CI runs type checking, component specs, browser smoke tests, the production build, and a package dry run on Node.js 20 and 22.
+
+## Build output
 
 ```bash
 npm run build
 ```
 
-To run the unit tests for the components, run:
+Stencil writes the distributable package to `dist/`, the custom-elements loader to `loader/`, generated API documentation alongside each component, and a development site to `www/`.
 
-```bash
-npm test
+Consumers can register the components with the generated loader:
+
+```ts
+import { defineCustomElements } from 'web-component-stencil-test/loader';
+
+defineCustomElements();
 ```
 
-Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
+## Components
 
+- `grid-container`, `grid-row`, `grid-col`, and `grid-ghost`: responsive grid primitives
+- `hrb-input`: labelled input with required, maximum-length, and pattern validation
+- `simple-button`: themed button with optional click count
+- `my-component`: basic greeting example
 
-## Available Components
+Generated component properties and usage examples are documented in each component's `readme.md` after a build.
 
-### Simple button
+### Input pattern compatibility
 
-**Examples**
+`hrb-input.pattern` accepts either a string (including the HTML `pattern` attribute) or a `RegExp` assigned programmatically. A `RegExp` is rendered to the native input as its `.source` string. The component's `isValid()` method preserves the historical JavaScript partial-match behavior for unanchored patterns; use anchors such as `^...$` when an exact match is required. The browser's native HTML pattern validation still applies its standard full-string semantics.
 
-```.html
-  <simple-button show-click theme="secondary">I'm a simple button</simple-button>
-```
+## Storybook
 
-**Properties**
-
-| Property        | Attribute    | Description           | Type      | Default     |  Values                   |
-| --------------- | ------------ | --------------------- | --------- | ----------- | ------------------------- |
-| `showNbOfClick` | `show-click` | Show number of clicks | `boolean` | `false`     | `true`,`false`            |
-| `theme`         | `theme`      | theme                 | `string`  | `'primary'` | `'primary'`,`'secondary'` |
-
-### My Component
-
-**Examples**
-
-```.html
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
-```
-
-**Properties**
-
-| Property | Attribute | Description     | Type     | Default     |
-| -------- | --------- | --------------- | -------- | ----------- |
-| `first`  | `first`   | The first name  | `string` | `undefined` |
-| `last`   | `last`    | The last name   | `string` | `undefined` |
-| `middle` | `middle`  | The middle name | `string` | `undefined` |
-
-
-
-## Using this component
-
-### Script tag
-
-- [Publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- Put a script tag similar to this `<script src='https://unpkg.com/web-component-stencil-test@0.0.1/dist/mycomponent.js'></script>` in the head of your index.html
-- Then you can use the element anywhere in your template, JSX, html etc
-
-### Node Modules
-- Run `npm install web-component-stencil-test --save`
-- Put a script tag similar to this `<script src='node_modules/web-component-stencil-test/dist/mycomponent.js'></script>` in the head of your index.html
-- Then you can use the element anywhere in your template, JSX, html etc
-
-### In a stencil-starter app
-- Run `npm install web-component-stencil-test --save`
-- Add an import to the npm packages `import web-component-stencil-test;`
-- Then you can use the element anywhere in your template, JSX, html etc
-
-### In a React app
-- See https://stenciljs.com/docs/react
-
-```
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-
-// Import the loader
-import { applyPolyfills, defineCustomElements } from 'web-component-stencil-test/loader';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
-
-applyPolyfills().then(() => {
-  defineCustomElements(window);
-});
-```
-
-### In an Angular app
-- See https://stenciljs.com/docs/angular
+The legacy Storybook 5 setup was removed because its addons and webpack integration are no longer maintained. The Stencil development server is the supported local component preview. A future Storybook reintroduction should use a current Storybook release and web-components renderer rather than restoring the old configuration.

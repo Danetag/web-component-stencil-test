@@ -1,285 +1,133 @@
-import { Component, Prop, h, State, Host, Method, Watch, Event, EventEmitter } from '@stencil/core';
-// import { INPUT_TYPES, InputDefinition, MAXLENGTH, REQUIRED, PATTERN } from '../form/constants';
+import { Component, Event, EventEmitter, h, Host, Method, Prop, State, Watch } from '@stencil/core';
 import { INPUT_TYPES, InputDefinition } from '../form/constants';
 
 @Component({
   tag: 'hrb-input',
   styleUrl: 'input.scss',
-  shadow: false
+  shadow: false,
 })
 export class Input {
+  @Prop() name = '';
+  @Prop({ attribute: 'prefix-input' }) prefixInput = '';
+  @Prop() type = 'text';
+  @Prop() required = false;
+  @Prop() readonly = false;
+  @Prop() disabled = false;
   /**
-   * Name
+   * Pattern used by isValid(). String patterns and programmatic RegExp values are supported.
+   * String patterns retain the component's historical partial-match validation semantics.
    */
-  @Prop() name: string = "";
+  @Prop() pattern?: string | RegExp;
+  @Prop() maxlength = 0;
+  @Prop() label?: string;
+  @Prop() placeholder?: string;
+  @Prop({ attribute: 'label-classnames' }) labelClassnames = '';
+  @Prop({ attribute: 'input-classnames' }) inputClassnames = '';
+  @Prop({ attribute: 'id-input' }) idInput = '';
+  @Prop() value = '';
 
-  /**
-   * Prefix
-   */
-  @Prop({attribute: 'prefix-input'}) prefixInput: string = "";
+  @State() currentValue = '';
+  @State() inputDefinition: InputDefinition = INPUT_TYPES.text;
 
-  /**
-   * Type
-   */
-  @Prop() type: string = "text";
+  @Event() valueChanges!: EventEmitter<string>;
 
-  /**
-   * Required
-   */
-  @Prop() required: boolean = false;
+  private inputElement!: HTMLInputElement;
 
-  /**
-   * Read only
-   */
-  @Prop() readonly: boolean = false
-  
-  /**
-   * Disabled
-   */
-  @Prop() disabled: boolean = false;
-
-  /**
-   * Pattern for validation
-   */
-  @Prop() pattern: RegExp = null;
-
-  /**
-   * Max Length
-   */
-  @Prop() maxlength: number = 0;
-
-  /**
-   * Label
-   */
-  @Prop() label: string = null;
-
-  /**
-   * placeholder
-   */
-  @Prop() placeholder: string = null;
-
-  /**
-   * Classnames for the <label> element
-   */
-  @Prop({attribute: 'label-classnames'}) labelClassnames: string = '';
-
-  /**
-   * Classnames for the <input /> element
-   */
-  @Prop({attribute: 'input-classnames'}) inputClassnames: string = '';
-
-  /**
-   * Input id
-   */
-  @Prop({attribute: 'id-input'}) idInput: string = '';
-
-  /**
-   * Value
-   */
-  @Prop() value: string = '';
   @Watch('value')
-  watchHandler(newValue: string) {
-    this.parseValue(newValue);
+  watchValue(value: string): void {
+    this.currentValue = value;
   }
 
-  /**
-   * Error state
-   */
-  @State() error: boolean = false;
-
-  /**
-   * Error message
-   */
-  @State() errorMessage: string = null;
-
-  /**
-   * current value
-   */
-  @State() currentValue: string = '';
-
-  /**
-   * internal type object
-   */
-  @State() inputDefinition: InputDefinition = INPUT_TYPES['text'];
-
-  /**
-   * Get the current value of the input. To get a live value of the input, use element.addEventListener('input', () => element.getValue());
-   */
+  /** Return the input's current value. */
   @Method()
-  async getValue() {
+  async getValue(): Promise<string> {
     return this.currentValue;
   }
 
-  /**
-   * Test validation of the current input value.
-   */
+  /** Validate the input's current value against its configured constraints. */
   @Method()
-  async isValid() {
-    let isValid = true;
+  async isValid(): Promise<boolean> {
+    if (!this.shouldBeValidated()) {
+      return true;
+    }
 
-    // Should be validated?
-    const shouldBeValidated = this.shouldBeValidated();
-
-    if (!shouldBeValidated) return true;
-
-    isValid = isValid && this.validateRequired();
-    isValid = isValid && this.validateMaxLength();
-    isValid = isValid && this.validatePattern();
-
-    return isValid;
+    return this.validateRequired() && this.validateMaxLength() && this.validatePattern();
   }
 
-  /*
-   * Make sure we trigger the onChange event so ngModel can capture it
-   */
-  @Event() valueChanges: EventEmitter;
-  valueChanged(event: any) {
-    // this.parseValue(event.target.value);
-    this.valueChanges.emit(event.target.value);
+  componentWillLoad(): void {
+    this.currentValue = this.value;
+    this.inputDefinition = this.getTypeDefinition();
   }
 
-  private inputElement: HTMLInputElement;
+  private onChange = (event: Event): void => {
+    this.valueChanges.emit((event.target as HTMLInputElement).value);
+  };
 
-  private formatPatternForDOM(pattern: RegExp): string {
-    if (!pattern) return null;
-
-    return (`` + pattern)
-      .replace('/^', '')
-      .replace('$/', '')
-      .replace('/', '//');
-  }
-
-  // setError = (error = { error: false, errorMessage: null }) => {
-  //   this.error = error;
-  //   this.errorMessage = errorMessage;
-  // }
-
-
-  private onChange = (e: Event): void => {
-    this.valueChanged(e);
-  }
-
-  private onInput = ():void => {
-    this.parseValue(this.inputElement.value);
+  private onInput = (): void => {
+    this.currentValue = this.inputElement.value;
     this.valueChanges.emit(this.currentValue);
-  }
-
-
-  /* Validation */
+  };
 
   private shouldBeValidated(): boolean {
-    const required = this.required;
-    const maxlength = this.maxlength;
-    const readonly = this.readonly;
-    const disabled = this.disabled;
-    const pattern = this.pattern;
-
-    return !readonly && !disabled && (pattern !== null || required || maxlength > 0);
+    return !this.readonly && !this.disabled && (Boolean(this.pattern) || this.required || this.maxlength > 0);
   }
 
   private validateRequired(): boolean {
-    const value = this.inputElement.value;
-    const required = this.required;
-
-    if ((required && typeof value === 'object' && (value === null || Object.keys(value).length === 0)) || (typeof value !== 'object' && required && (!value || !value.length))) {
-      // this.setError({ error: true, errorMessage: REQUIRED.message });
-      return false;
-    }
-
-    return true;
+    return !this.required || this.currentValue.length > 0;
   }
 
   private validateMaxLength(): boolean {
-    const value = this.currentValue;
-    const maxlength = this.maxlength;
-
-    if (maxlength > 0 && value && value.length > maxlength) {
-      // this.setError({ error: true, errorMessage: MAXLENGTH.message });
-      return false;
-    }
-
-    return true;
+    return this.maxlength <= 0 || this.currentValue.length <= this.maxlength;
   }
 
   private validatePattern(): boolean {
-    const value = this.currentValue;
-    const pattern = this.pattern ? this.pattern : this.inputDefinition.pattern;
+    const pattern = this.pattern ?? this.inputDefinition.pattern;
+    return !pattern || !this.currentValue || new RegExp(pattern).test(this.currentValue);
+  }
 
-    if (pattern && value && !new RegExp(pattern).test(value)) {
-      // this.setError({ error: true, errorMessage: PATTERN.message });
-      return false;
-    }
-
-    return true;
+  private formatPatternForDom(pattern?: string | RegExp): string | undefined {
+    return pattern instanceof RegExp ? pattern.source : pattern;
   }
 
   private getId(): string {
-    let { prefixInput, name, idInput } = this;
-
-    if (idInput.length) return idInput;
-
-    return prefixInput + name;
+    return this.idInput || `${this.prefixInput}${this.name}`;
   }
 
-  private getTypeObject(): InputDefinition {
-    let type = Object.values(INPUT_TYPES).filter(input => input.type === this.type)[0];
-    if (!type) type = INPUT_TYPES['text'];
-
-    return type;
-  }
-
-  private parseValue(str: string):void {
-    this.currentValue = str;
-  }
-
-  componentWillLoad() {
-    this.parseValue(this.value);
-    this.inputDefinition = this.getTypeObject();
+  private getTypeDefinition(): InputDefinition {
+    return Object.values(INPUT_TYPES).find(input => input.type === this.type) ?? INPUT_TYPES.text;
   }
 
   render() {
-    // props
-    let {
-      inputDefinition,
-      onInput,
-      onChange,
-      required,
-      label,
-      placeholder,
-      labelClassnames,
-      inputClassnames,
-      name,
-    } = this;
-    
-    // state
-    const { error, currentValue } = this;
-
     const id = this.getId();
-    const pattern = this.pattern ? this.pattern : inputDefinition.pattern;
-    const type = inputDefinition.inputType;
-    const patternDOM = this.formatPatternForDOM(pattern);
-    const maxlength = this.maxlength > 0 ? this.maxlength : null;
+    const pattern = this.pattern ?? this.inputDefinition.pattern;
+    const maxLength = this.maxlength > 0 ? this.maxlength : undefined;
 
-    return <Host>
-        { label && 
-          <label class={`label ${labelClassnames}`} htmlFor={id}>
-            {label}
+    return (
+      <Host>
+        {this.label && (
+          <label class={`label ${this.labelClassnames}`.trim()} htmlFor={id}>
+            {this.label}
           </label>
-        }
+        )}
         <input
-          ref={el => this.inputElement = el as HTMLInputElement}
-          type={type}
-          name={name}
+          ref={element => {
+            if (element) this.inputElement = element;
+          }}
+          type={this.inputDefinition.inputType}
+          name={this.name}
           id={id}
-          onInput={onInput}
-          onChange={onChange}
-          maxLength={maxlength}
-          pattern={patternDOM}
-          required={required}
-          class={`input ${error ? 'input-error' : ""} ${inputClassnames}`}
-          placeholder={placeholder}
-          value={currentValue}
+          onInput={this.onInput}
+          onChange={this.onChange}
+          maxLength={maxLength}
+          pattern={this.formatPatternForDom(pattern)}
+          required={this.required}
+          readOnly={this.readonly}
+          disabled={this.disabled}
+          class={`input ${this.inputClassnames}`.trim()}
+          placeholder={this.placeholder}
+          value={this.currentValue}
         />
-    </Host>;
+      </Host>
+    );
   }
 }

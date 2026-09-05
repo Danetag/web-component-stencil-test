@@ -1,4 +1,4 @@
-import { Config } from '@stencil/core';
+import type { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
@@ -6,26 +6,20 @@ export const config: Config = {
   globalStyle: 'src/globals/app.scss',
   plugins: [
     sass({
-      injectGlobalPaths: [
-        "src/globals/app.scss"
-      ]
-    })
+      injectGlobalPaths: ['src/globals/app.scss'],
+    }),
   ],
   outputTargets: [
     {
-      // type: 'dist-hydrate-script',
       type: 'dist',
-      esmLoaderPath: '../loader'
+      esmLoaderPath: '../loader',
     },
     {
-      type: 'docs-readme'
+      type: 'docs-readme',
     },
     {
       type: 'www',
-      prerenderLocations: [
-        { path: '/button' }
-      ],
-      serviceWorker: null // disable service workers
-    }
-  ]
+      serviceWorker: null,
+    },
+  ],
 };
