@@ -1,6 +1,6 @@
 {
   "name": "web-component-stencil-test",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "A small responsive grid, input, and button web component library built with Stencil.",
   "author": "Arnaud Tanielian",
   "license": "MIT",
