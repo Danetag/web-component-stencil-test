@@ -27,7 +27,7 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec",
     "test:watch": "stencil test --spec --watchAll",
-    "test:e2e": "stencil test --e2e",
+    "test:e2e": "node scripts/stencil-e2e.mjs",
     "typecheck": "tsc --noEmit",
     "prepack": "npm run build",
     "generate": "stencil generate"
@@ -43,7 +43,7 @@
     "@types/node": "^22.20.1",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
-    "puppeteer": "^24.31.0",
+    "puppeteer": "^25.10.0",
     "typescript": "^5.9.3"
   }
 }
